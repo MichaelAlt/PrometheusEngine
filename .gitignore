@@ -1,0 +1,19 @@
+# Folders
+bin/*
+conf/*
+lib/*
+log/*
+tmp/*
+work/*
+
+
+# Files
+.classpath
+.project
+!bin/.gitkeep
+!conf/.gitkeep
+!lib/.gitkeep
+!log/.gitkeep
+!tmp/.gitkeep
+!work/.gitkeep
+/bin/
