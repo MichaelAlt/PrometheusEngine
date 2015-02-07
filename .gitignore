@@ -2,8 +2,8 @@
 bin/*
 conf/*
 lib/*
-log/*
-tmp/*
+logs/*
+modules/*
 work/*
 
 
@@ -13,7 +13,7 @@ work/*
 !bin/.gitkeep
 !conf/.gitkeep
 !lib/.gitkeep
-!log/.gitkeep
-!tmp/.gitkeep
+!logs/.gitkeep
+!modules/.gitkeep
 !work/.gitkeep
 /bin/
