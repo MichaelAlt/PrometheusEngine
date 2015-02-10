@@ -1,0 +1,1 @@
+SELECT * FROM prometheus_identities_attributes WHERE attribute_key=? OR attribute_name=?

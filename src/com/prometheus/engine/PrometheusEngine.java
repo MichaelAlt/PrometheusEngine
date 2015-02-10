@@ -10,6 +10,8 @@ import org.apache.catalina.Service;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
 
 import com.prometheus.core.configuration.ConfigurationContext;
 import com.prometheus.core.database.DatabaseManager;
@@ -17,6 +19,7 @@ import com.prometheus.core.exception.ConfigurationException;
 import com.prometheus.core.modules.ModuleConfiguration;
 import com.prometheus.core.modules.ModuleManager;
 import com.prometheus.core.modules.annotations.ModuleType.ModuleTypes;
+import com.prometheus.core.security.SecurityFilter;
 
 /**
  * 
@@ -66,6 +69,18 @@ public class PrometheusEngine {
 			defaultContext.addLifecycleListener(new ContextConfig());
 
 			databaseManager.getConnections(defaultContext);
+			
+			FilterDef security = new FilterDef();
+			security.setFilterName("security");
+			security.setFilterClass(SecurityFilter.class.getName());
+
+			FilterMap filterMap = new FilterMap();
+			filterMap.setFilterName("security");
+			filterMap.addURLPattern("/*");
+
+			defaultContext.addFilterDef(security);
+			defaultContext.addFilterMap(filterMap);
+			defaultContext.addWelcomeFile("index");
 
 			for (ModuleConfiguration module : moduleManager.getModules()) {
 

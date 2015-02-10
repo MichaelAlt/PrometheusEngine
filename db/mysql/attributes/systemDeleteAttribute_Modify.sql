@@ -1,0 +1,1 @@
+ALTER TABLE prometheus_identities DROP COLUMN %s

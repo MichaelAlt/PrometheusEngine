@@ -1,0 +1,1 @@
+DELETE FROM prometheus_identities_attributes WHERE attribute_key=?
