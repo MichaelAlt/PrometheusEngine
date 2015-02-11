@@ -1,1 +1,0 @@
-ALTER TABLE prometheus_identities ADD %s %s(%d)

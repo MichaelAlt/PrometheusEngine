@@ -1,0 +1,1 @@
+SELECT * FROM prometheus_identities WHERE identity_key=?

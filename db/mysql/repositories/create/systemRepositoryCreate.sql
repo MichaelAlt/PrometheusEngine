@@ -1,0 +1,1 @@
+INSERT INTO prometheus_repositories(repository_key,repository_name,repository_attribute) VALUES(?,?,?)

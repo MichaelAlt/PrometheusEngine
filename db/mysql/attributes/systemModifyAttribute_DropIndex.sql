@@ -1,1 +1,0 @@
-ALTER TABLE prometheus_identities DROP INDEX %s

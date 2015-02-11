@@ -1,0 +1,1 @@
+UPDATE prometheus_identities_attributes SET attribute_name=?, attribute_type=?, attribute_length=?, attribute_nullable=?, attribute_default=? WHERE attribute_key=?

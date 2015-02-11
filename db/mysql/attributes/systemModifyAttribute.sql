@@ -1,1 +1,0 @@
-UPDATE prometheus_identities_attributes SET attribute_name=?, attribute_type=?, attribute_length=?, attribute_index=? WHERE attribute_key=?
