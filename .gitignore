@@ -12,6 +12,7 @@ work/*
 .project
 !bin/.gitkeep
 !conf/.gitkeep
+!conf/connection.ini.mysql
 !lib/.gitkeep
 !logs/.gitkeep
 !modules/.gitkeep

@@ -1,0 +1,1 @@
+DELETE FROM prometheus_repositories WHERE repository_key=?

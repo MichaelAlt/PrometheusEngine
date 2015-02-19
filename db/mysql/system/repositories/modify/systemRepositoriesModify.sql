@@ -1,0 +1,1 @@
+UPDATE prometheus_repositories SET repository_name=?, repository_attribute WHERE repository_key=?

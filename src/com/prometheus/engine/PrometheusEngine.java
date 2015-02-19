@@ -48,7 +48,7 @@ public class PrometheusEngine {
 	public PrometheusEngine() {
 
 		System.setProperty("user.dir", "C:/Users/alt/Documents/GitHub/PrometheusEngine");
-		
+
 		try {
 
 			DatabaseManager databaseManager = new DatabaseManager();
@@ -69,7 +69,7 @@ public class PrometheusEngine {
 			defaultContext.addLifecycleListener(new ContextConfig());
 
 			databaseManager.getConnections(defaultContext);
-			
+
 			FilterDef security = new FilterDef();
 			security.setFilterName("security");
 			security.setFilterClass(SecurityFilter.class.getName());
@@ -80,7 +80,6 @@ public class PrometheusEngine {
 
 			defaultContext.addFilterDef(security);
 			defaultContext.addFilterMap(filterMap);
-			defaultContext.addWelcomeFile("index");
 
 			for (ModuleConfiguration module : moduleManager.getModules()) {
 
@@ -92,7 +91,7 @@ public class PrometheusEngine {
 					defaultContext.addServletMapping("/" + module.getModuleName(), module.getModuleName());
 				}
 			}
-
+			
 			tomcat.start();
 			tomcat.getServer().await();
 

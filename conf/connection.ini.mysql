@@ -1,0 +1,32 @@
+#
+# Server Configuration
+#
+server.port=443
+
+#
+# SSL Configuration
+#
+server.ssl.keystore=bin/server.jks
+server.ssl.keystorepass=<your_keystore_password>
+server.ssl.keyalias=<your_keystore_key_alias>
+
+#
+# Database Connection
+#
+server.database.type=mysql
+server.database.hostname=127.0.0.1
+server.database.port=3306
+server.database.username=<your_database_user>
+server.database.password=<your_database_user_password>
+server.database.database=prometheus
+
+# Initial number of database connections
+server.database.initialSize=50
+# Minimum number of connections to be keeped
+server.database.minIdle=50
+# Maximum number of active connections
+server.database.maxActive=100
+# Maximum number of connections that are keeped
+server.database.maxIdle=100
+# Maximum time waiting for an available connection
+server.database.maxWait=30000

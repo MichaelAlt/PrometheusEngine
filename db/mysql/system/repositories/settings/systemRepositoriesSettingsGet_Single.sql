@@ -1,0 +1,1 @@
+SELECT * FROM prometheus_repositories_settings WHERE setting_repository=? AND (setting_key=? OR setting_name=?)

@@ -4,9 +4,10 @@ CREATE DATABASE IF NOT EXISTS prometheus;
 USE prometheus;
 
 CREATE TABLE IF NOT EXISTS prometheus_configuration (
-	entry_key VARCHAR(36),
-	entry_name VARCHAR(255),
-	entry_value VARCHAR(255),
+	configuration_key VARCHAR(36) NOT NULL,
+	configuration_name VARCHAR(255) NOT NULL,
+	configuration_value VARCHAR(255) NOT NULL,
+	configuration_domain VARCHAR(255) NULL,
 	PRIMARY KEY(entry_key),
 	UNIQUE KEY(entry_name),
 	INDEX(entry_key),
@@ -14,7 +15,7 @@ CREATE TABLE IF NOT EXISTS prometheus_configuration (
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_identities (
-	identity_key VARCHAR(36),
+	identity_key VARCHAR(36) NOT NULL,
 	identity_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
 	identity_changed TIMESTAMP,
 	PRIMARY KEY(identity_key),
@@ -22,12 +23,12 @@ CREATE TABLE IF NOT EXISTS prometheus_identities (
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_identities_attributes (
-	attribute_key VARCHAR(36),
-	attribute_name VARCHAR(255),
-	attribute_type INT(3),
-	attribute_length INT(3),
-	attribute_nullable TINYINT(1),
-	attribute_default VARCHAR(255),
+	attribute_key VARCHAR(36) NOT NULL,
+	attribute_name VARCHAR(255) NOT NULL,
+	attribute_type INT(3) NOT NULL,
+	attribute_length INT(3) NOT NULL,
+	attribute_nullable TINYINT(1) NO NULL,
+	attribute_default VARCHAR(255) NULL,
 	PRIMARY KEY(attribute_key),
 	UNIQUE KEY(attribute_name),
 	INDEX(attribute_key),
@@ -50,10 +51,10 @@ CREATE TABLE IF NOT EXISTS prometheus_repositories (
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_repositories_settings (
-	setting_key VARCHAR(36),
-    setting_repository VARCHAR(36),
-    setting_name VARCHAR(255),
-    setting_value VARCHAR(266),
+	setting_key VARCHAR(36) NOT NULL,
+    setting_repository VARCHAR(36) NOT NULL,
+    setting_name VARCHAR(255) NOT NULL,
+    setting_value VARCHAR(255) NOT NULL,
     PRIMARY KEY(setting_key),
     UNIQUE KEY(setting_repository,setting_name),
     INDEX(setting_repository,setting_name)
