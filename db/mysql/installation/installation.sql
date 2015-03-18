@@ -8,18 +8,30 @@ CREATE TABLE IF NOT EXISTS prometheus_configuration (
 	configuration_name VARCHAR(255) NOT NULL,
 	configuration_value VARCHAR(255) NOT NULL,
 	configuration_domain VARCHAR(255) NULL,
-	PRIMARY KEY(entry_key),
-	UNIQUE KEY(entry_name),
-	INDEX(entry_key),
-	INDEX(entry_name)
+	PRIMARY KEY(configuration_key),
+	UNIQUE KEY(configuration_name),
+	INDEX(configuration_key),
+	INDEX(configuration_name)
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_identities (
 	identity_key VARCHAR(36) NOT NULL,
-	identity_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-	identity_changed TIMESTAMP,
+	identity_unique VARCHAR(255) NOT NULL,
+	identity_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	identity_changed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY(identity_key),
+	UNIQUE KEY(identity_unique),
 	INDEX(identity_key)
+);
+
+CREATE TABLE IF NOT EXISTS prometheus_identities_history (
+	history_key VARCHAR(36) NOT NULL,
+	history_identity VARCHAR(36) NOT NULL,
+	history_attribute VARCHAR(255) NOT NULL,
+	history_value VARCHAR(255) NULL,
+	history_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY(history_key),
+	INDEX(history_identity,history_attribute)
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_identities_attributes (
@@ -27,7 +39,7 @@ CREATE TABLE IF NOT EXISTS prometheus_identities_attributes (
 	attribute_name VARCHAR(255) NOT NULL,
 	attribute_type INT(3) NOT NULL,
 	attribute_length INT(3) NOT NULL,
-	attribute_nullable TINYINT(1) NO NULL,
+	attribute_nullable TINYINT(1) NOT NULL,
 	attribute_default VARCHAR(255) NULL,
 	PRIMARY KEY(attribute_key),
 	UNIQUE KEY(attribute_name),
@@ -43,9 +55,9 @@ CREATE TABLE IF NOT EXISTS prometheus_identities_attributes_indexes (
 );
 
 CREATE TABLE IF NOT EXISTS prometheus_repositories (
-	repository_key VARCHAR(36),
-	repository_name VARCHAR(255),
-	repository_attribute VARCHAR(36),
+	repository_key VARCHAR(36) NOT NULL,
+	repository_name VARCHAR(255) NOT NULL,
+	repository_attribute VARCHAR(36) NOT NULL,
 	PRIMARY KEY(repository_key),
 	UNIQUE KEY(repository_name)
 );

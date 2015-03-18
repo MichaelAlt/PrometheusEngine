@@ -1,1 +1,1 @@
-SELECT * FROM prometheus_identities WHERE identity_key=?
+SELECT * FROM prometheus_identities WHERE identity_key=? OR identity_unique=?

@@ -1,0 +1,1 @@
+INSERT INTO prometheus_identities_history(history_key,history_identity,history_attribute,history_value) VALUES(?,?,?,?)

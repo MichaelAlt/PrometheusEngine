@@ -1,1 +1,1 @@
-UPDATE prometheus_repositories_settings SET setting_value=? WHERE setting_key=?
+UPDATE prometheus_repositories_settings SET setting_name=?, setting_value=? WHERE setting_key=?

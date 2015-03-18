@@ -1,0 +1,1 @@
+UPDATE prometheus_identities SET %s=?

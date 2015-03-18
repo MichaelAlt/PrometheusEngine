@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Sealed: true
-
+Class-Path: . ../lib/prometheus-core.jar ../lib/tomcat-dbcp.jar ../lib/tomcat-embed-core.jar ../lib/tomcat-embed-el.jar ../lib/tomcat-embed-jasper.jar ../lib/tomcat-embed-logging-juli.jar ../lib/tomcat-embed-logging-log4j.jar ../lib/jstl-1.2.jar ../lib/ecj-4.4.jar
+Main-Class: com.prometheus.engine.PrometheusEngine

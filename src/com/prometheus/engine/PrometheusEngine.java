@@ -8,6 +8,8 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Service;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.core.AprLifecycleListener;
+import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
@@ -31,21 +33,24 @@ public class PrometheusEngine {
 	/**
 	 * 
 	 * @param args
-	 * @throws ServletException
-	 * @throws LifecycleException
-	 * @throws ConfigurationException
 	 */
 	public static void main(String[] args) {
+
 		PrometheusEngine engine = new PrometheusEngine();
+		engine.startServer();
 	}
 
 	/**
 	 * 
-	 * @throws ServletException
-	 * @throws LifecycleException
-	 * @throws ConfigurationException
 	 */
 	public PrometheusEngine() {
+
+	}
+
+	/**
+	 * 
+	 */
+	private void startServer() {
 
 		System.setProperty("user.dir", "C:/Users/alt/Documents/GitHub/PrometheusEngine");
 
@@ -60,7 +65,10 @@ public class PrometheusEngine {
 			tomcat.setBaseDir(System.getProperty("user.dir") + "/");
 			tomcat.setConnector(connector);
 			tomcat.enableNaming();
-			tomcat.setSilent(true);
+
+			StandardServer server = (StandardServer) tomcat.getServer();
+			AprLifecycleListener listener = new AprLifecycleListener();
+			server.addLifecycleListener(listener);
 
 			Service service = tomcat.getService();
 			service.addConnector(connector);
@@ -91,7 +99,7 @@ public class PrometheusEngine {
 					defaultContext.addServletMapping("/" + module.getModuleName(), module.getModuleName());
 				}
 			}
-			
+
 			tomcat.start();
 			tomcat.getServer().await();
 
@@ -99,12 +107,17 @@ public class PrometheusEngine {
 			e.printStackTrace();
 		} catch (ConfigurationException e) {
 			e.printStackTrace();
+			System.exit(1);
 		} catch (LifecycleException e) {
 			e.printStackTrace();
+			System.exit(1);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
@@ -112,32 +125,25 @@ public class PrometheusEngine {
 	 * 
 	 * @return
 	 */
-	private static Connector getConnector() {
+	private Connector getConnector() throws Exception {
 
 		Connector connector = new Connector();
 
 		connector.setPort(Integer.valueOf((String) ConfigurationContext.get("server.port")));
 		connector.setAttribute("server", "Prometheus");
 
-		connector.setScheme("http");
-		//
-		// connector.setSecure(true);
-		// connector.setScheme("https");
-		// if (((String)
-		// configuration.get("ssl.keystore.path")).startsWith("/")) {
-		// connector.setAttribute("keystoreFile",
-		// configuration.get("ssl.keystore.path"));
-		// } else {
-		// connector.setAttribute("keystoreFile", System.getProperty("user.dir")
-		// + configuration.get("ssl.keystore.path"));
-		// }
-		// connector.setAttribute("keystorePass",
-		// configuration.get("ssl.keystore.pass"));
-		// connector.setAttribute("keyAlias",
-		// configuration.get("ssl.keystore.alias"));
-		// connector.setAttribute("clientAuth", "false");
-		// connector.setAttribute("sslProtocol", "TLS");
-		// connector.setAttribute("SSLEnabled", true);
+		connector.setSecure(true);
+		connector.setScheme("https");
+		if (ConfigurationContext.get("server.ssl.keystore").startsWith("/")) {
+			connector.setAttribute("KeystoreFile", ConfigurationContext.get("server.ssl.keystore"));
+		} else {
+			connector.setAttribute("KeystoreFile", System.getProperty("user.dir") + "/" + ConfigurationContext.get("server.ssl.keystore"));
+		}
+		connector.setAttribute("KeystorePass", ConfigurationContext.get("server.ssl.keystorepass"));
+		connector.setAttribute("KeyAlias", ConfigurationContext.get("server.ssl.keyalias"));
+		connector.setAttribute("ClientAuth", "false");
+		connector.setAttribute("SSLProtocol", "TLS");
+		connector.setAttribute("SSLEnabled", true);
 
 		return connector;
 	}

@@ -1,15 +1,16 @@
 # Folders
 bin/*
 conf/*
-lib/*
 logs/*
 modules/*
 work/*
+.settings/*
 
 
 # Files
 .classpath
 .project
+lib/prometheus-core.jar
 !bin/.gitkeep
 !conf/.gitkeep
 !conf/connection.ini.mysql

@@ -1,0 +1,1 @@
+INSERT INTO prometheus_identities(%s) VALUES(%s)
